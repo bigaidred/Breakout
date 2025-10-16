@@ -67,7 +67,7 @@ void Ball::update(float dt)
         _sprite.setPosition(0, 300);
         _direction = { 1, 1 };
         _gameManager->loseLife();
-        score = score - 50;
+        score = score - 100;
         if (score < 0)
         {
             score = 0;
@@ -88,13 +88,19 @@ void Ball::update(float dt)
 
     // collision with bricks
     int collisionResponse = _gameManager->getBrickManager()->checkCollision(_sprite, _direction);
-    if (_isFireBall) return; // no collisisons when in fireBall mode.
+
     if (collisionResponse == 1)
     {
+        score = score + 50;
+        if (_isFireBall) return; // no collisisons when in fireBall mode.
+
         _direction.x *= -1; // Bounce horizontally
     }
     else if (collisionResponse == 2)
     {
+        score = score + 50;
+        if (_isFireBall) return; // no collisisons when in fireBall mode.
+
         _direction.y *= -1; // Bounce vertically
     }
 }

@@ -7,7 +7,7 @@
 #include "PowerupManager.h"
 #include "MessagingSystem.h"
 #include "UI.h"
-
+#include "FailScreen.h"
 
 
 class GameManager {
@@ -46,6 +46,7 @@ private:
     BrickManager* _brickManager;
     PowerupManager* _powerupManager;
     MessagingSystem* _messagingSystem;
+    FailScreen* _failScreen;
     UI* _ui;
 
     static constexpr float PAUSE_TIME_BUFFER = 0.5f;

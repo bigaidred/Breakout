@@ -24,6 +24,7 @@ void GameManager::initialize()
     _ball = new Ball(_window, 400.0f, this); 
     _powerupManager = new PowerupManager(_window, _paddle, _ball);
     _ui = new UI(_window, _lives, this);
+    _failScreen = new FailScreen(_window, this);
 
     // Create bricks
     _brickManager->createBricks(5, 10, 80.0f, 30.0f, 5.0f);
@@ -69,7 +70,7 @@ void GameManager::update(float dt)
 {
     _powerupInEffect = _powerupManager->getPowerupInEffect();
     _ui->updatePowerupText(_powerupInEffect);
-    _ui->updateScoreText(100);
+    _ui->updateScoreText(_ball->getScore());
     _powerupInEffect.second -= dt;
     
 
@@ -104,14 +105,16 @@ void GameManager::update(float dt)
     _paddle->update(dt);
     _ball->update(dt);
     _powerupManager->update(dt);
+    _failScreen->update(dt);
 }
 
 void GameManager::loseLife()
 {
     _lives--;
     _ui->lifeLost(_lives);
+    
+    _failScreen->lifeLost(_lives);
 
-    // TODO screen shake.
 }
 
 void GameManager::render()
@@ -120,6 +123,8 @@ void GameManager::render()
     _ball->render();
     _brickManager->render();
     _powerupManager->render();
+    _failScreen->render();
+
     _window->draw(_masterText);
     _ui->render();
 }
