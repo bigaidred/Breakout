@@ -13,6 +13,7 @@ GameManager::GameManager(sf::RenderWindow* window)
     _masterText.setPosition(50, 400);
     _masterText.setCharacterSize(48);
     _masterText.setFillColor(sf::Color::Yellow);
+
 }
 
 void GameManager::initialize()
@@ -68,6 +69,7 @@ void GameManager::update(float dt)
 {
     _powerupInEffect = _powerupManager->getPowerupInEffect();
     _ui->updatePowerupText(_powerupInEffect);
+    _ui->updateScoreText(100);
     _powerupInEffect.second -= dt;
     
 

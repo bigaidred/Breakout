@@ -8,6 +8,8 @@ Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
     _sprite.setRadius(RADIUS);
     _sprite.setFillColor(sf::Color::Cyan);
     _sprite.setPosition(0, 300);
+
+    score = 0;
 }
 
 Ball::~Ball()
@@ -65,6 +67,11 @@ void Ball::update(float dt)
         _sprite.setPosition(0, 300);
         _direction = { 1, 1 };
         _gameManager->loseLife();
+        score = score - 50;
+        if (score < 0)
+        {
+            score = 0;
+        }
     }
 
     // collision with paddle
