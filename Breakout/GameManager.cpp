@@ -28,23 +28,8 @@ void GameManager::initialize()
     _brickManager->createBricks(5, 10, 80.0f, 30.0f, 5.0f);
 }
 
-void GameManager::update(float dt)
+void GameManager::handleInput(float dt)
 {
-    _powerupInEffect = _powerupManager->getPowerupInEffect();
-    _ui->updatePowerupText(_powerupInEffect);
-    _powerupInEffect.second -= dt;
-    
-
-    if (_lives <= 0)
-    {
-        _masterText.setString("Game over.");
-        return;
-    }
-    if (_levelComplete)
-    {
-        _masterText.setString("Level completed.");
-        return;
-    }
     // pause and pause handling
     if (_pauseHold > 0.f) _pauseHold -= dt;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
@@ -62,6 +47,41 @@ void GameManager::update(float dt)
             _pauseHold = PAUSE_TIME_BUFFER;
         }
     }
+
+    if (_pause)
+    {
+        return;
+    }
+
+    // move paddle
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) _paddle->moveRight(dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) _paddle->moveLeft(dt);
+
+    if (_paddle->getMouseControl())
+    {
+        _paddle->mouseMove(sf::Mouse::getPosition().x);
+    }
+
+}
+
+void GameManager::update(float dt)
+{
+    _powerupInEffect = _powerupManager->getPowerupInEffect();
+    _ui->updatePowerupText(_powerupInEffect);
+    _powerupInEffect.second -= dt;
+    
+
+    if (_lives <= 0)
+    {
+        _masterText.setString("Game over.");
+        return;
+    }
+    if (_levelComplete)
+    {
+        _masterText.setString("Level completed.");
+        return;
+    }
+   
     if (_pause)
     {
         return;
@@ -77,15 +97,7 @@ void GameManager::update(float dt)
         _timeLastPowerupSpawned = _time;
     }
 
-    // move paddle
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) _paddle->moveRight(dt);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) _paddle->moveLeft(dt);
-
-    if (_paddle->getMouseControl())
-    {
-        _paddle->mouseMove(sf::Mouse::getPosition().x);
-    }
-
+   
     // update everything 
     _paddle->update(dt);
     _ball->update(dt);

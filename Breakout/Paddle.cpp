@@ -39,7 +39,7 @@ void Paddle::mouseMove(float xPos)
 {
     if (xPos < _window->getSize().x - _width && xPos > 0)
     {
-        _sprite.setPosition(sf::Vector2f(xPos , _sprite.getPosition().y));
+        _sprite.setPosition(sf::Vector2f(xPos, _sprite.getPosition().y));
     }
 }
 
