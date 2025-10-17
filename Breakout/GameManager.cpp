@@ -50,6 +50,34 @@ void GameManager::handleInput(float dt)
         }
     }
 
+    //Check if game is being not being  played (win or loss state is true)
+    if (_lives <= 0 || _levelComplete == true)
+    {
+        //Check for reset input
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        {
+            //Reset all necessary variables
+            if (_lives <= 0)
+            {
+                _ball->setScore(0);
+            }
+
+            _brickManager->resetBricks();
+            _brickManager->createBricks(5, 10, 80.0f, 30.0f, 5.0f);
+
+            _levelComplete = false;
+            _pause = false;
+            _lives = 3;
+            _ball->resetBall();
+
+            _paddle->reset();
+            _ui->resetLives(INITIAL_LIVES);
+            _masterText.setString("");
+        }
+
+        return;
+    }
+
     if (_pause)
     {
         return;
@@ -76,12 +104,12 @@ void GameManager::update(float dt)
 
     if (_lives <= 0)
     {
-        _masterText.setString("Game over.");
+        _masterText.setString("Game over. \nPress Space to play again.");
         return;
     }
     if (_levelComplete)
     {
-        _masterText.setString("Level completed.");
+        _masterText.setString("Level completed.  \nPress Space to continue.");
         return;
     }
    

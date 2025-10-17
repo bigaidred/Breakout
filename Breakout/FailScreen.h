@@ -10,6 +10,7 @@ public:
     ~FailScreen();
     void update(float dt);
     void render();
+    void reset();
     void lifeLost(int lives);
 
 

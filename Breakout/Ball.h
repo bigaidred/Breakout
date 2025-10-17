@@ -14,10 +14,16 @@ public:
     void render();
     void setVelocity(float coeff, float duration);
     void setFireBall(float duration);
+    void resetBall();
 
     int getScore()
     {
         return score;
+    }
+
+    void setScore(int s)
+    {
+        score = s;
     }
 
 private:

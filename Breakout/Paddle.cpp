@@ -79,6 +79,11 @@ void Paddle::render()
     _window->draw(_sprite);
 }
 
+void Paddle::reset()
+{
+    _sprite.setPosition((_window->getSize().x - _width) / 2.0f, _window->getSize().y - 50.0f);
+}
+
 sf::FloatRect Paddle::getBounds() const
 {
     return _sprite.getGlobalBounds();

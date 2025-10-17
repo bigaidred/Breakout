@@ -67,11 +67,6 @@ void Ball::update(float dt)
         _sprite.setPosition(0, 300);
         _direction = { 1, 1 };
         _gameManager->loseLife();
-        score = score - 100;
-        if (score < 0)
-        {
-            score = 0;
-        }
     }
 
     // collision with paddle
@@ -108,6 +103,12 @@ void Ball::update(float dt)
 void Ball::render()
 {
     _window->draw(_sprite);
+}
+
+void Ball::resetBall()
+{
+    _sprite.setPosition(0, 300);
+    _direction = { 1, 1 };
 }
 
 void Ball::setVelocity(float coeff, float duration)

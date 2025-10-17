@@ -36,6 +36,12 @@ void FailScreen::update(float dt)
 	}
 }
 
+void FailScreen::reset()
+{
+	isAlive = false;
+	_time = 0;
+}
+
 void FailScreen::lifeLost(int lives)
 {
 	isAlive = true;

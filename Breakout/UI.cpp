@@ -17,6 +17,9 @@ UI::UI(sf::RenderWindow* window, int lives, GameManager* gameManager)
 		newLife.setPosition((LIFE_RADIUS*2 + LIFE_PADDING) * i, LIFE_PADDING);
 		_lives.push_back(newLife);
 	}
+
+	_highScore = 0;
+
 	_powerupText.setCharacterSize(30);
 	_powerupText.setPosition(800, 10);
 	_powerupText.setFillColor(sf::Color::Cyan);
@@ -28,12 +31,31 @@ UI::UI(sf::RenderWindow* window, int lives, GameManager* gameManager)
 	_scoreText.setFillColor(sf::Color::Red);
 	_scoreText.setFont(_font);
 	_scoreText.setString("Score: 0");
+
+	_highScoreText.setCharacterSize(30);
+	_highScoreText.setPosition(350, 50);
+	_highScoreText.setFillColor(sf::Color::Yellow);
+	_highScoreText.setFont(_font);
+	_highScoreText.setString("High Score: " + std::to_string(_highScore));
 }
 
 UI::~UI()
 {
 }
 
+void UI::resetLives(int lives)
+{
+	for (int i = lives; i > 0; --i)
+	{
+		sf::CircleShape newLife;
+		newLife.setFillColor(sf::Color::Red);
+		newLife.setOutlineColor(sf::Color::Cyan);
+		newLife.setOutlineThickness(4.0f);
+		newLife.setRadius(LIFE_RADIUS);
+		newLife.setPosition((LIFE_RADIUS * 2 + LIFE_PADDING) * i, LIFE_PADDING);
+		_lives.push_back(newLife);
+	}
+}
 
 void UI::updatePowerupText(std::pair<POWERUPS, float> powerup)
 {
@@ -76,6 +98,11 @@ void UI::updatePowerupText(std::pair<POWERUPS, float> powerup)
 void UI::updateScoreText(int s)
 {
 	_scoreText.setString("Score: " + std::to_string(s));
+	if (s > _highScore)
+	{
+		_highScore = s;
+		_highScoreText.setString("High Score: " + std::to_string(_highScore));
+	}
 }
 
 void UI::lifeLost(int lives)
@@ -87,6 +114,8 @@ void UI::render()
 {
 	_window->draw(_powerupText);
 	_window->draw(_scoreText);
+	_window->draw(_highScoreText);
+
 	for (sf::CircleShape life : _lives)
 	{
 		_window->draw(life);

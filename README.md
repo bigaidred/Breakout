@@ -49,9 +49,19 @@ Adrian Herrero Redden - 2202936
 
 -Added mouse control which can be toggled on and off with 'M' - 10 mins
 
--Implemented a handle input function to game manager to distinguish updates from inputs - 3 mins
+-Implemented a handle input function to game manager to distinguish updates from inputs - 5 mins
 
 -Added score tracker which increments on block hits and decrements on loss of life - 15 mins
 
 -Life lost screen + game over - 30 mins
+
+-Game can be replayed after a loss or win - 30 mins
+
+-Game can be continued after a win with an increasing score until failure - 10 minutes
+
+-High score text displayed on screen - 15 minutes 
+
+
+
+(120 mins)
 
