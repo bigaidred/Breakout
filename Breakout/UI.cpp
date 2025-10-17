@@ -45,6 +45,8 @@ UI::~UI()
 
 void UI::resetLives(int lives)
 {
+	_lives.clear();
+
 	for (int i = lives; i > 0; --i)
 	{
 		sf::CircleShape newLife;
