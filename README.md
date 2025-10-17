@@ -17,16 +17,16 @@ fire ball (green)
 
 ## Suggested fixes
 
-* Fix the compiler issues in the code - done
+* Fix the compiler issues in the codeW
 
 
 
 ## Suggested tasks
 
-* Implement mouse input for pad - done
+* Implement mouse input for pad
 * Improved VFX (ball trail, paddle hit response, brick particle destruction)
 * Better UI (progress bar rather than timer for countdown).
-* GameLoop - done
+* GameLoop
 * Better ball physics (Box2D)
 * Leaderboards
 * More ball types (e.g., multiball, sticky ball \[where you shoot the ball from the paddle every time], tiny ball, big ball, brick-tracking ball)
@@ -57,13 +57,17 @@ Adrian Herrero Redden - 2202936
 
 -Game can be replayed after a loss or win - 30 mins
 
--Game can be continued after a win with an increasing score until failure - 10 minutes
+-Game can be continued after a win with an increasing score until failure - 15 minutes
 
--High score text displayed on screen - 15 minutes 
+-Added high score that is displayed on screen - 15 minutes
 
 -Fixed bug that caused lives visual to not change upon death after restarting game - 10 mins
 
--Fixed bug where powerups could be carried into the next level - 5 mins
+-Fixed bug where powerups could be carried into the next level - 10 mins
+
+-Added reset button to pause menu, moved reset functionality to its own function in game manager - 10 mins
+
+-Added "beast Mode" on the pause menu - 20 mins
 
 
 
@@ -71,5 +75,5 @@ Adrian Herrero Redden - 2202936
 
 
 
-(135 mins)
+(185 mins)
 

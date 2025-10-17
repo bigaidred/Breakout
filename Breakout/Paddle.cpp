@@ -21,7 +21,15 @@ void Paddle::moveLeft(float dt)
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && position > 0)
     {
-        _sprite.move(sf::Vector2f(-dt * PADDLE_SPEED, 0));
+        if (beastMode)
+        {
+            _sprite.move(sf::Vector2f(-dt * BEAST_PADDLE_SPEED, 0));
+        }
+
+        else
+        {
+            _sprite.move(sf::Vector2f(-dt * PADDLE_SPEED, 0));
+        }
     }
 }
 
@@ -31,7 +39,15 @@ void Paddle::moveRight(float dt)
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && position < _window->getSize().x - _width)
     {
-        _sprite.move(sf::Vector2f(dt * PADDLE_SPEED, 0));
+        if (beastMode)
+        {
+            _sprite.move(sf::Vector2f(dt * BEAST_PADDLE_SPEED, 0));
+        }
+
+        else
+        {
+            _sprite.move(sf::Vector2f(dt * PADDLE_SPEED, 0));
+        }
     }
 }
 
@@ -82,6 +98,7 @@ void Paddle::render()
 void Paddle::reset()
 {
     _sprite.setPosition((_window->getSize().x - _width) / 2.0f, _window->getSize().y - 50.0f);
+    beastMode = false;
 }
 
 sf::FloatRect Paddle::getBounds() const
@@ -93,9 +110,21 @@ sf::FloatRect Paddle::getBounds() const
 // ensure centre remains consistent.
 void Paddle::setWidth(float coeff, float duration)
 {
-    _width = coeff * PADDLE_WIDTH;
-    _sprite.setSize(sf::Vector2f(_width, _sprite.getSize().y));
-    _timeInNewSize = duration;
-    float newX = _sprite.getPosition().x + (_width - PADDLE_WIDTH) / 2;
-    _sprite.setPosition(newX, _sprite.getPosition().y);
+    if (beastMode)
+    {
+        _width = coeff * BEAST_PADDLE_WIDTH;
+        _sprite.setSize(sf::Vector2f(_width, _sprite.getSize().y));
+        _timeInNewSize = duration;
+        float newX = _sprite.getPosition().x + (_width - BEAST_PADDLE_WIDTH) / 2;
+        _sprite.setPosition(newX, _sprite.getPosition().y);
+    }
+    else
+    {
+
+        _width = coeff * PADDLE_WIDTH;
+        _sprite.setSize(sf::Vector2f(_width, _sprite.getSize().y));
+        _timeInNewSize = duration;
+        float newX = _sprite.getPosition().x + (_width - PADDLE_WIDTH) / 2;
+        _sprite.setPosition(newX, _sprite.getPosition().y);
+    }
 }

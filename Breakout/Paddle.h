@@ -28,6 +28,12 @@ public:
         _mouseControl = mc;
     }
 
+    void setBeastMode(bool b)
+    {
+        beastMode = b;
+        setWidth(1.0f, 0.0f);
+    }
+
 private:
 
 
@@ -36,5 +42,6 @@ private:
     float _width = PADDLE_WIDTH;
     bool _isAlive;
     bool _mouseControl;
+    bool beastMode;
     float _timeInNewSize = 0.0f;
 };

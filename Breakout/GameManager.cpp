@@ -39,7 +39,7 @@ void GameManager::handleInput(float dt)
         if (!_pause && _pauseHold <= 0.f)
         {
             _pause = true;
-            _masterText.setString("paused.");
+            _masterText.setString("paused. Press r to restart.\nPress B to activate beast mode");
             _pauseHold = PAUSE_TIME_BUFFER;
         }
         if (_pause && _pauseHold <= 0.f)
@@ -50,29 +50,27 @@ void GameManager::handleInput(float dt)
         }
     }
 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && _pause)
+    {
+        resetGame();
+        _pause = false;
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::B) && _pause)
+    {
+        _paddle->setBeastMode(true);
+        _pause = false;
+        _masterText.setString("");
+        _pauseHold = PAUSE_TIME_BUFFER;
+    }
+
     //Check if game is being not being  played (win or loss state is true)
     if (_lives <= 0 || _levelComplete == true)
     {
         //Check for reset input
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
-            //Reset all necessary variables
-            if (_lives <= 0)
-            {
-                _ball->setScore(0);
-            }
-
-            _brickManager->resetBricks();
-            _brickManager->createBricks(5, 10, 80.0f, 30.0f, 5.0f);
-
-            _levelComplete = false;
-            _pause = false;
-            _lives = 3;
-            _ball->resetBall();
-
-            _paddle->reset();
-            _ui->resetUI(INITIAL_LIVES);
-            _masterText.setString("");
+            resetGame();
         }
 
         return;
@@ -92,6 +90,27 @@ void GameManager::handleInput(float dt)
         _paddle->mouseMove(sf::Mouse::getPosition().x);
     }
 
+}
+
+void GameManager::resetGame()
+{
+    //Reset all necessary variables
+    if (_lives <= 0 || _pause == true)
+    {
+        _ball->setScore(0);
+    }
+
+    _brickManager->resetBricks();
+    _brickManager->createBricks(5, 10, 80.0f, 30.0f, 5.0f);
+
+    _levelComplete = false;
+    _pause = false;
+    _lives = 3;
+    _ball->resetBall();
+
+    _paddle->reset();
+    _ui->resetUI(INITIAL_LIVES);
+    _masterText.setString("");
 }
 
 void GameManager::update(float dt)
