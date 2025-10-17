@@ -43,10 +43,11 @@ UI::~UI()
 {
 }
 
-void UI::resetLives(int lives)
+void UI::resetUI(int lives)
 {
-	_lives.clear();
+	_powerupText.setString("");
 
+	_lives.clear();
 	for (int i = lives; i > 0; --i)
 	{
 		sf::CircleShape newLife;

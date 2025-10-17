@@ -109,6 +109,7 @@ void Ball::resetBall()
 {
     _sprite.setPosition(0, 300);
     _direction = { 1, 1 };
+    _timeWithPowerupEffect = 0;
 }
 
 void Ball::setVelocity(float coeff, float duration)

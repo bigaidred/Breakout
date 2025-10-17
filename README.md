@@ -61,11 +61,15 @@ Adrian Herrero Redden - 2202936
 
 -High score text displayed on screen - 15 minutes 
 
+-Fixed bug that caused lives visual to not change upon death after restarting game - 10 mins
+
+-Fixed bug where powerups could be carried into the next level - 5 mins
 
 
 
 
 
 
-(120 mins)
+
+(135 mins)
 

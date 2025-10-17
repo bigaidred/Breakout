@@ -71,7 +71,7 @@ void GameManager::handleInput(float dt)
             _ball->resetBall();
 
             _paddle->reset();
-            _ui->resetLives(INITIAL_LIVES);
+            _ui->resetUI(INITIAL_LIVES);
             _masterText.setString("");
         }
 

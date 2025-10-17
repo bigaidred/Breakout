@@ -16,7 +16,7 @@ public:
 	void updatePowerupText(std::pair<POWERUPS, float>);
 	void updateScoreText(int s);
 	void lifeLost(int lives);
-	void resetLives(int lives);
+	void resetUI(int lives);
 	void render();
 
 private:
