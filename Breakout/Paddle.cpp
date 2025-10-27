@@ -2,13 +2,14 @@
 #include <iostream>
 
 Paddle::Paddle(sf::RenderWindow* window)
-    : _window(window), _width(PADDLE_WIDTH), _timeInNewSize(0.0f), _isAlive(true)
+    : _window(window), _width(PADDLE_WIDTH), _timeInPowerup(0.0f), _isAlive(true)
 {
     _sprite.setFillColor(sf::Color::Cyan);
     _sprite.setPosition((window->getSize().x - _width) / 2.0f, window->getSize().y - 50.0f);
     _sprite.setSize(sf::Vector2f(_width, PADDLE_HEIGHT));
 
     _mouseControl = false;
+    _velocity = PADDLE_SPEED;
 }
 
 Paddle::~Paddle()
@@ -28,7 +29,7 @@ void Paddle::moveLeft(float dt)
 
         else
         {
-            _sprite.move(sf::Vector2f(-dt * PADDLE_SPEED, 0));
+            _sprite.move(sf::Vector2f(-dt * _velocity, 0));
         }
     }
 }
@@ -46,7 +47,7 @@ void Paddle::moveRight(float dt)
 
         else
         {
-            _sprite.move(sf::Vector2f(dt * PADDLE_SPEED, 0));
+            _sprite.move(sf::Vector2f(dt * _velocity, 0));
         }
     }
 }
@@ -61,13 +62,14 @@ void Paddle::mouseMove(float xPos)
 
 void Paddle::update(float dt)
 {
-    if (_timeInNewSize > 0)
+    if (_timeInPowerup > 0)
     {
-        _timeInNewSize -= dt;
+        _timeInPowerup -= dt;
     }
     else
     {
         setWidth(1.0f, 0.0f); // Reset to default width after duration
+        _velocity = PADDLE_SPEED;   //Reset speed to default
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
@@ -114,7 +116,7 @@ void Paddle::setWidth(float coeff, float duration)
     {
         _width = coeff * BEAST_PADDLE_WIDTH;
         _sprite.setSize(sf::Vector2f(_width, _sprite.getSize().y));
-        _timeInNewSize = duration;
+        _timeInPowerup = duration;
         float newX = _sprite.getPosition().x + (_width - BEAST_PADDLE_WIDTH) / 2;
         _sprite.setPosition(newX, _sprite.getPosition().y);
     }
@@ -123,8 +125,15 @@ void Paddle::setWidth(float coeff, float duration)
 
         _width = coeff * PADDLE_WIDTH;
         _sprite.setSize(sf::Vector2f(_width, _sprite.getSize().y));
-        _timeInNewSize = duration;
+        _timeInPowerup = duration;
         float newX = _sprite.getPosition().x + (_width - PADDLE_WIDTH) / 2;
         _sprite.setPosition(newX, _sprite.getPosition().y);
     }
+}
+
+void Paddle::setVelocity(float vel, float duration)
+{
+    _velocity = vel;
+    _timeInPowerup = duration;
+
 }

@@ -17,6 +17,7 @@ public:
     void render();
     sf::FloatRect getBounds() const;
     void setWidth(float coeff, float duration);
+    void setVelocity(float vel, float duration);
 
     bool getMouseControl()
     {
@@ -43,5 +44,7 @@ private:
     bool _isAlive;
     bool _mouseControl;
     bool beastMode;
-    float _timeInNewSize = 0.0f;
+    float _velocity;
+    float _timeInPowerup = 0.0f;
+
 };
